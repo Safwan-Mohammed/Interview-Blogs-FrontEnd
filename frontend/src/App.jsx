@@ -12,7 +12,7 @@ import Profile from './pages/Profile'
 import MyBlogs from './pages/MyBlogs'
 
 //context api
-import UserContextProvider from './context/userContext';
+import UserContextProvider from './context/UserContext';
 
 function App() {
 
