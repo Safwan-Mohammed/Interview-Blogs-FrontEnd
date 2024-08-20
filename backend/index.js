@@ -16,6 +16,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
+app.use('/ping',(req,res)=>{
+    res.send("/ Server working")
+})
+
 const connectDB = async() => {
     try {
         await mongoose.connect(process.env.MONGO_URL)
