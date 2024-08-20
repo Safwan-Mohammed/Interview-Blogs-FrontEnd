@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 //importing controllers
-const { register, login, logout ,refetch } = require("../controllers/user.controller");
+const { register, login, logout ,refetch } = require("../controllers/authuser.controller");
 
 //Register
 router.post("/register", register);
