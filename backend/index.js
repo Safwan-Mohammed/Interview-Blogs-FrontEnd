@@ -17,11 +17,11 @@ dotenv.config();
 
 // Middleware
 const corsOptions = {
-    origin: 'https://interview-blogs-api.vercel.app', // Your frontend origin
+    origin: '*', // Your frontend origin
     credentials: true,               // Allow credentials
 };
 
-app.options('*', cors(corsOptions));
+// app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 
 app.use(express.json());
