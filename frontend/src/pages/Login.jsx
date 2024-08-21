@@ -7,8 +7,6 @@ import { UserContext } from "../context/UserContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// toast.configure();
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +31,12 @@ const Login = () => {
     }
   };
 
+  // Function to autofill test credentials
+  const autofillTestCredentials = () => {
+    setEmail("test@gmail.com");
+    setPassword("1234");
+  };
+
   return (
     <>
       <div className="flex items-center justify-between px-6 md:px-[200px] py-4">
@@ -51,19 +55,29 @@ const Login = () => {
             className="w-full px-4 py-2 border-2 border-black outline-0"
             type="text"
             placeholder="Enter your email"
+            value={email}
           />
           <input
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-2 border-2 border-black outline-0"
             type="password"
             placeholder="Enter your password"
+            value={password}
           />
+          <button
+    onClick={autofillTestCredentials}
+    className="w-full px-4 py-2 text-sm font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 hover:text-white mb-2"
+  >
+    fill test user details (only for project demo)
+    autofills user details
+  </button>
           <button
             onClick={handleLogin}
             className="w-full px-4 py-4 text-lg font-bold text-white bg-black rounded-lg hover:bg-gray-500 hover:text-black"
           >
             Log in
           </button>
+          
           {error && (
             <h3 className="text-red-500 text-sm">Something went wrong</h3>
           )}
