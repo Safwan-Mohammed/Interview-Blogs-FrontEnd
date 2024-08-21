@@ -17,7 +17,10 @@ dotenv.config();
 
 // Middleware
 const corsOptions = {
-    origin: 'http://localhost:5173', // Your frontend origin
+    // origin: 'http://localhost:5173', // Your frontend origin
+    //for deployed one
+    origin : 'https://interview-blogs-app.vercel.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,               // Allow credentials
 };
 

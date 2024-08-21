@@ -1,6 +1,7 @@
 {
   "name": "blog-app",
   "private": true,
+  "proxy":"https://interview-blogs-api.vercel.app",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
