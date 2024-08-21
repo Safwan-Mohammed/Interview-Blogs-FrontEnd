@@ -16,7 +16,13 @@ const commentRoute = require('./routes/comment.route');
 dotenv.config();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173', // Your frontend origin
+    credentials: true,               // Allow credentials
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/images", express.static(path.join(__dirname, "/images")));
