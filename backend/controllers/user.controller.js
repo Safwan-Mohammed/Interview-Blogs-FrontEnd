@@ -82,6 +82,20 @@ const savePost = async (req, res, next) => {
     }
 };
 
+exports.getSavedPosts = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.userId).populate('savedPosts');
+        if (!user) {
+            return next(new AppError('User not found', 404));
+        }
+        res.status(200).json(user.savedPosts);
+    } catch (err) {
+        next(new AppError('Failed to retrieve saved posts', 500));
+    }
+}
+
+
+
 
 
 

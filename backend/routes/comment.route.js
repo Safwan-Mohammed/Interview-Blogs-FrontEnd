@@ -5,7 +5,8 @@ const {
     createComment,
     updateComment,
     deleteComment,
-    getCommentsByPostId
+    getCommentsByPostId,
+    replyToComment
 } = require('../controllers/comment.controller');
 
 // CREATE

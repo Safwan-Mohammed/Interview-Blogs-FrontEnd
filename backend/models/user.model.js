@@ -1,3 +1,4 @@
+const Post = require('./post.model')
 const mongoose=require('mongoose')
 
 const UserSchema=new mongoose.Schema({
@@ -20,10 +21,7 @@ const UserSchema=new mongoose.Schema({
         type:String,
        
     },
-    savedPosts: {
-        type: Array,
-        default: [],
-      },
+    savedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
 },{timestamps:true})
 
 module.exports=mongoose.model("User",UserSchema)
