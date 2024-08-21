@@ -1,4 +1,4 @@
-import AppError from '../utils/error.util';
+const AppError  = require('../utils/error.util')
 
 const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')

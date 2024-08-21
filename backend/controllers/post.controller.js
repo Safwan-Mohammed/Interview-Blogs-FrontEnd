@@ -1,5 +1,5 @@
 const Post = require('../models/post.model');
-const Comment = require('../models/comments.model');
+const Comment = require('../models/comment.model');
 const User = require('../models/user.model');
 const AppError = require('../utils/error.util');
 

@@ -1,17 +1,28 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const {
+    updateUser,
+    deleteUser,
+    getUser,
+    savePost,
+    getSavedPosts
+} = require('../controllers/user.controller'); 
 
-const { updateUser, deleteUser, getUser ,savePost,getSavedPosts} = require("../controllers/user.controller");
-const verifyToken = require('../middlewares/verifyToken')
+const verifyToken = require('../middlewares/verifyToken');
 
-router.put('/:id' ,verifyToken ,updateUser)
-router.put('/:id' ,verifyToken , deleteUser)
-router.put('/:id' ,getUser)
+// Update user
+router.put('/:id', verifyToken, updateUser);
 
-// SAVE A POST
-router.put("/:id/save", verifyToken, savePost);
+// Delete user
+router.delete('/:id', verifyToken, deleteUser); 
 
-// GET SAVED POSTS
-router.get("/saved", verifyToken, getSavedPosts);
+// Get user
+router.get('/:id', getUser);
+
+// Save/Unsave post
+router.put("/:postId/save", verifyToken, savePost); // Ensure the param matches
+
+// Get saved posts
+router.get("/:id/saved", verifyToken, getSavedPosts);
 
 module.exports = router;
