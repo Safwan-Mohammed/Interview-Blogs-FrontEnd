@@ -20,4 +20,6 @@ router.delete("/:id", verifyToken, deleteComment);
 // GET COMMENTS FOR A POST
 router.get("/post/:postId", getCommentsByPostId);
 
+router.post("/:id/reply", verifyToken, replyToComment);
+
 module.exports = router;

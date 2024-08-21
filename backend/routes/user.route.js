@@ -8,4 +8,8 @@ router.put('/:id' ,verifyToken ,updateUser)
 router.put('/:id' ,verifyToken , deleteUser)
 router.put('/:id' ,getUser)
 
+// SAVE A POST
+router.put("/:id/save", verifyToken, savePost);
+
+
 module.exports = router;

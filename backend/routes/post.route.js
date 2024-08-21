@@ -7,7 +7,8 @@ const {
     deletePost,
     getPostById,
     getPosts,
-    getUserPosts
+    getUserPosts,
+    likePost
 } = require('../controllers/post.controller');
 
 // CREATE
@@ -27,5 +28,7 @@ router.get("/", getPosts);
 
 // GET USER POSTS
 router.get("/user/:userId", getUserPosts);
+
+router.put("/:id/like", verifyToken, likePost);
 
 module.exports = router;

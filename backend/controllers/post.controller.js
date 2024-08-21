@@ -1,5 +1,6 @@
 const Post = require('../models/post.model');
 const Comment = require('../models/comments.model');
+const User = require('../models/user.model');
 const AppError = require('../utils/error.util');
 
 // Create a new post
@@ -69,5 +70,21 @@ exports.getUserPosts = async (req, res, next) => {
         res.status(200).json(posts);
     } catch (err) {
         next(new AppError('Failed to retrieve user posts', 500));
+    }
+};
+
+//liking a post
+exports.likePost = async (req, res, next) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post.likes.includes(req.userId)) {
+            await post.updateOne({ $push: { likes: req.userId } });
+            res.status(200).json("Post has been liked");
+        } else {
+            await post.updateOne({ $pull: { likes: req.userId } });
+            res.status(200).json("Post has been unliked");
+        }
+    } catch (err) {
+        next(new AppError('Failed to like/unlike post', 500));
     }
 };

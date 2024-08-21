@@ -66,7 +66,23 @@ const getUser = async (req,res,next)=> {
     }
 }
 
+// Save a post
+const savePost = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.userId);
+        if (!user.savedPosts.includes(req.params.id)) {
+            await user.updateOne({ $push: { savedPosts: req.params.id } });
+            res.status(200).json("Post has been saved");
+        } else {
+            await user.updateOne({ $pull: { savedPosts: req.params.id } });
+            res.status(200).json("Post has been removed from saved");
+        }
+    } catch (err) {
+        next(new AppError('Failed to save/unsave post', 500));
+    }
+};
 
 
 
-module.exports = {updateUser , deleteUser ,getUser}
+
+module.exports = {updateUser , deleteUser ,getUser , savePost}

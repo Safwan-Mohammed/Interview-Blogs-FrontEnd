@@ -1,12 +1,16 @@
-const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-const cors = require('cors')
-const multer = require('multer') 
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const connectDB = require('./database.config');  // Import the database connection
+const upload = require('./multer.config');  // Import multer config
+const authRoute = require('./routes/auth.route');
+const userRoute = require('./routes/user.route');
+const postRoute = require('./routes/post.route');
+const commentRoute = require('./routes/comment.route');
 
-dotenv.config()
-app.use(express.json())
+
 
 app.use(cors())
 const corsOptions = {
@@ -16,23 +20,25 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-app.use('/ping',(req,res)=>{
-    res.send("/ Server working")
+dotenv.config()
+app.use(express.json())
+app.use("/images",express.static(path.join(__dirname,"/images")))
+
+
+const upload=multer({storage:storage})
+app.post("/api/upload",upload.single("file"),(req,res)=>{
+    res.status(200).json("Image has been uploaded successfully!")
 })
 
-const connectDB = async() => {
-    try {
-        await mongoose.connect(process.env.MONGO_URL)
-        console.log("Database Connection Esatblished ");
-        
-    }catch(error){
-        console.log("Index file DB error ", error);
-        
-    }
-}
+// Routes
+app.use('/api/auth', authRoute);
+app.use('/api/users', userRoute);
+app.use('/api/posts', postRoute);
+app.use('/api/comments', commentRoute);
 
-app.listen(process.env.PORT , ()=>{
+const PORT = process.env.PORT || 5000;
+app.listen(PORT , ()=>{
     connectDB()
-    console.log("App is running on port"+process.env.PORT);
+    console.log("App is running on ${PORT}");
     
 })
