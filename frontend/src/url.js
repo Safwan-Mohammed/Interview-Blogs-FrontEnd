@@ -1,5 +1,5 @@
-export const URL ='http://interview-blogs-api.vercel.app'
-export const IF = 'http://interview-blogs-api.vercel.app/Images/'
+export const URL ='https://interview-blogs-api.vercel.app'
+export const IF = 'https://interview-blogs-api.vercel.app/Images/'
 
 
 
