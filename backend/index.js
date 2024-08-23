@@ -23,12 +23,8 @@ dotenv.config();
 
 // app.options('*', cors(corsOptions));
 
-app.use(cors({
-    origin:  'https://interview-blogs-app.vercel.app',
-    credentials: true,
-}));
+app.use(cors())
 
-// app.use(cors())
 
 app.use(express.json());
 app.use(cookieParser());
@@ -49,10 +45,6 @@ app.use('/api/users', userRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/comments', commentRoute);
 
-app.options('*', cors({
-    origin: 'https://interview-blogs-app.vercel.app',
-    credentials: true,
-}));
 
 // Start the server
 const PORT = process.env.PORT || 5000;
