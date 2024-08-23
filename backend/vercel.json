@@ -12,12 +12,7 @@
           "headers": [
             { "key": "Access-Control-Allow-Origin", "value": "*" }
           ]
-        },
-        {
-          "source": "/https://interview-blogs-app.vercel.app/(.*)",
-          "headers": [
-            { "key": "Access-Control-Allow-Origin", "value": "*" }
-          ]
-        }  
+        }
+       
     ]
 }
