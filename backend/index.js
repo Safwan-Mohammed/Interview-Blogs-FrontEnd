@@ -42,6 +42,9 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 });
 
 // Routes
+app.use('/hello', (req, res) => {
+    res.status(200).json({message: "hello"})
+})
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);
 app.use('/api/posts', postRoute);
