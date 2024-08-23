@@ -49,6 +49,11 @@ app.use('/api/users', userRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/comments', commentRoute);
 
+app.options('*', cors({
+    origin: 'https://interview-blogs-app.vercel.app',
+    credentials: true,
+}));
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
