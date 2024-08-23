@@ -23,10 +23,16 @@ dotenv.config();
 
 // app.options('*', cors(corsOptions));
 
-app.use(cors({
-    credentials: true,
-    origin: ['http://localhost:5173', 'https://interview-blogs-app.vercel.app/']
-}));
+// app.use(cors({
+//     credentials: true,
+//     origin: ['http://localhost:5173', 'https://interview-blogs-app.vercel.app/']
+// }));
+
+app.use(
+    cors({
+      origin: "*",
+    })
+  );
 
 app.use(express.json());
 app.use(cookieParser());
