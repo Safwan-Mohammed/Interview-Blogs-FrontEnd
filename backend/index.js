@@ -24,8 +24,7 @@ dotenv.config();
 // app.options('*', cors(corsOptions));
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://interview-blogs-app.vercel.app'],
-    methods:["POST","GET","DELETE","PUT"],
+    origin:  'https://interview-blogs-app.vercel.app',
     credentials: true,
 }));
 
