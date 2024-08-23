@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from "../axiosInstance";
 import Footer from "../components/Footer"
 import HomePosts from "../components/HomePosts"
 import Navbar from "../components/Navbar"
@@ -25,7 +25,7 @@ const Home = () => {
   const fetchPosts=async()=>{
     setLoader(true)
     try{
-      const res=await axios.get(URL+"/api/posts/"+search)
+      const res=await axiosInstance.get("/api/posts/"+search)
       // console.log(res.data)
       setPosts(res.data)
       setFilterData(res.data)

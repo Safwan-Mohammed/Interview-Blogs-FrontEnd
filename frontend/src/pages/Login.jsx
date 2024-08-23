@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useContext, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { URL } from "../url";
 import { UserContext } from "../context/UserContext";
 import { toast } from "react-toastify";
@@ -16,11 +16,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post(
-        URL + "/api/auth/login",
-        { email, password },
-        { withCredentials: true }
-      );
+      const res = await axiosInstance.post("/api/auth/login", { email, password });
       setUser(res.data);
       toast.success("Login successful!");
       navigate("/");

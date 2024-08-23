@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ProfilePosts from "../components/ProfilePosts";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { IF, URL } from "../url";
 import { UserContext } from "../context/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,7 +19,7 @@ const Profile = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get(URL + "/api/users/" + user._id);
+      const res = await axiosInstance.get("/api/users/" + user._id);
       setUsername(res.data.username);
       setEmail(res.data.email);
       setPassword(res.data.password);
@@ -32,7 +32,7 @@ const Profile = () => {
     setUpdated(false);
 
     try {
-      // const response = await axios.put(
+      // const response = await axiosInstance.put(
       //   `http://localhost:8000/api/users/${user._id}`,
       //   JSON.stringify({ username, email, password }), // Send the data as an object
       //   {

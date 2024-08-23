@@ -15,14 +15,18 @@ const commentRoute = require('./routes/comment.route');
 // Load environment variables
 dotenv.config();
 
-// Middleware
-const corsOptions = {
-    origin: '*', // Your frontend origin
-    credentials: true,               // Allow credentials
-};
+// // Middleware
+// const corsOptions = {
+//     origin: 'http://localhost:5173/', // Your frontend origin
+//     credentials: true,               // Allow credentials
+// };
 
 // app.options('*', cors(corsOptions));
-app.use(cors());
+
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:5173'
+}));
 
 app.use(express.json());
 app.use(cookieParser());

@@ -4,7 +4,7 @@ import { ImCross } from 'react-icons/im';
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { URL } from '../url';
-import axios from 'axios';
+import axiosInstance from "../axiosInstance";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Ensure you import the Toastify CSS
@@ -52,7 +52,7 @@ const CreatePost = () => {
       post.photo = filename;
 
       try {
-        await axios.post(URL+"/api/upload", data);
+        await axiosInstance.post("/api/upload", data);
         toast.success("Image uploaded successfully!"); 
       } catch (err) {
         console.log(err);
@@ -61,7 +61,7 @@ const CreatePost = () => {
     }
 
     try {
-      const res = await axios.post(URL+"/api/posts/create", post, { withCredentials: true });
+      const res = await axiosInstance.post("/api/posts/create", post, { withCredentials: true });
       toast.success("Post created successfully!"); // Toastify notification on post creation success
       navigate("/posts/post/" + res.data._id);
     } catch (err) {
