@@ -25,7 +25,7 @@ dotenv.config();
 
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:5173'
+    origin: ['http://localhost:5173', 'https://interview-blogs-app.vercel.app/']
 }));
 
 app.use(express.json());
