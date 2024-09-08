@@ -1,8 +1,2 @@
-// export const URL ='https://interview-blogs-api.vercel.app'
-// export const IF = 'https://interview-blogs-api.vercel.app/Images/'
-
-
-
-export const URL ='http://localhost:5000'
-export const IF = 'http://localhost:5000/images/'
-
+export const URL = import.meta.env.VITE_ENVIRONMENT === 'PROD' ? `URL` : `http://localhost:8000`
+export const IF = import.meta.env.VITE_ENVIRONMENT === 'PROD' ? `URL/images` : `http://localhost:8000/images`
