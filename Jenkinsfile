@@ -20,7 +20,7 @@ pipeline {
                 '''
             }
         }
-        stage('Deploy') [
+        stage('Deploy') {
             agent {
                 docker {
                     image 'node:22-alpine3.20'
@@ -32,9 +32,9 @@ pipeline {
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                     node_modules/.bin/netlify status
-                    node_modules/.bin/metlify deploy --dir=build --prod
+                    node_modules/.bin/netlify deploy --dir=build --prod
                 '''
             }
-        ]
+        }
     }
 }
