@@ -4,7 +4,7 @@ pipeline {
         NETLIFY_AUTH_TOKEN = credentials('JENKINS_NETLIFY_AUTH')
         NETLIFY_SITE_ID = credentials('NETLIFY_SITE_ID')
         IMAGE_NAME = "lightgaia/blogs-practice-images"
-        TAG = "F1.0"
+        TAG = "F1.1"
         DOCKERHUB_CREDENTIALS_PSW = credentials('JENKINS_DOCKER_HUB_AUTH')
         DOCKERHUB_CREDENTIALS_USR = 'lightgaia'
     }
@@ -40,9 +40,20 @@ pipeline {
                 sh 'docker push $IMAGE_NAME:$TAG'
             }
         }
-        stage('Deploy'){
-            steps{
-                sh "echo 'Deploy Success!'"
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:22-alpine3.20'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm install netlify-cli
+                    node_modules/.bin/netlify --version
+                    node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --dir=dist --prod
+                '''
             }
         }
     }
