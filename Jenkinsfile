@@ -32,11 +32,17 @@ pipeline {
         }
         stage('Dockerhub Login') {
             steps {
-                sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}"            }
+                sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}"           
+            }
         }
         stage('Push Image'){
             steps {
                 sh 'docker push $IMAGE_NAME:$TAG'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                sh "echo 'Deploy Success!'"
             }
         }
     }
