@@ -5,7 +5,8 @@ pipeline {
         NETLIFY_SITE_ID = credentials('NETLIFY_SITE_ID')
         IMAGE_NAME = "lightgaia/blogs-practice-images"
         TAG = "F1.0"
-        DOCKERHUB_CREDENTIALS = credentials('JENKINS_DOCKER_HUB_AUTH')
+        DOCKERHUB_CREDENTIALS_PSW = credentials('JENKINS_DOCKER_HUB_AUTH')
+        DOCKERHUB_CREDENTIALS_USR = 'lightgaia'
     }
     stages {
         stage('Build App') {
@@ -31,8 +32,7 @@ pipeline {
         }
         stage('Dockerhub Login') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
+                sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}"            }
         }
         stage('Push Image'){
             steps {
