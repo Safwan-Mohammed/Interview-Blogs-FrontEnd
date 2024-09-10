@@ -5,11 +5,10 @@ pipeline {
         NETLIFY_SITE_ID = credentials('NETLIFY_SITE_ID')
         IMAGE_NAME = "lightgaia/blogs-practice-images"
         TAG = "F1.0"
-        DOCKERHUB_AUTH = credentials('JENKINS_DOCKER_HUB_AUTH')
-        DOCKERHUB_USER = "lightgaia"
+        DOCKERHUB_CREDENTIALS = credentials('JENKINS_DOCKER_HUB_AUTH')
     }
     stages {
-        stage('Build') {
+        stage('Build App') {
             agent {
                 docker {
                     image 'node:22-alpine3.20'
@@ -25,15 +24,20 @@ pipeline {
                 '''
             }
         }
-        stage('Push to DockerHub') {
+        stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build('${IMAGE_NAME}:${TAG}')
-                    sh '''
-                        docker login -u ${DOCKERHUB_USER} --password ${DOCKERHUB_AUTH}
-                        docker push ${IMAGE_NAME}:${TAG}
-                    '''
+                    sh 'docker build -t $IMAGE_NAME:$TAG .'
                 }
+            }
+        }
+        stage('Dockerhub Login') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('Push Image'){
+            steps {
+                sh 'docker push $IMAGE_NAME:$TAG'
             }
         }
     }
