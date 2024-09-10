@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        NETLIFY_AUTH_TOKEN = credentials('NETLIFY-JENKINS-AUTH')
-        NETLIFY_SITE_ID = credentials('NETLIFY-SITE-ID')
+        NETLIFY_AUTH_TOKEN = credentials('JENKINS_NETLIFY_AUTH')
+        NETLIFY_SITE_ID = credentials('NETLIFY_SITE_ID')
     }
     stages {
         stage('Build') {
