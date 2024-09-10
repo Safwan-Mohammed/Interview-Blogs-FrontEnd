@@ -16,6 +16,7 @@ pipeline {
                 sh '''
                     node --version
                     npm --version
+                    npm install vite
                     npm run build
                 '''
             }
