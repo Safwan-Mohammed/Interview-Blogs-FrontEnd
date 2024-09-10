@@ -1,0 +1,31 @@
+stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:22-alpine3.20'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm install netlify-cli
+                    node_modules/.bin/netlify --version
+                    node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --dir=dist --prod
+                '''
+            }
+        }
+
+stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:22-alpine3.20'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm install @railway/cli
+                    RAILWAY_TOKEN=$RAILWAY_TOKEN node_modules/.bin/railway up --service=$RAILWAY_SERVICE_NAME -d
+                '''
+            }
+        }
