@@ -5,7 +5,7 @@ pipeline {
         NETLIFY_SITE_ID = credentials('NETLIFY_SITE_ID')
         IMAGE_NAME = "lightgaia/blogs-practice-images"
         TAG = "F1.0"
-        DOCKERHUB_AUTH = credetials('JENKINS_DOCKER_HUB_AUTH')
+        DOCKERHUB_AUTH = credentials('JENKINS_DOCKER_HUB_AUTH')
         DOCKERHUB_USER = "lightgaia"
     }
     stages {
