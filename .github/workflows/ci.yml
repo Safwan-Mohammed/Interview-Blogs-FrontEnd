@@ -1,0 +1,80 @@
+name: Interview Blogs Frontend UI
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        
+      - name: Check Out Code
+        uses: actions/checkout@v4
+      
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+          with:
+            node-version: 20
+      
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Vite
+        run: npm install vite
+      
+      - name: Build App
+        run: npm run build
+      
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-files
+          path: ./dist
+  
+  docker:
+    runs-on: ubuntu-latest
+    
+    steps:
+      
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Build Docker Image
+        run: docker build -t lightgaia/blogs-practice-images:F1.2 .
+
+      - name: Dockerhub Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASS }}
+      
+      - name: Push Docker Image
+        run: docker push lightgaia/blogs-practice-images:F1.2
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+          with:
+            version: 20
+      
+      - name: Setup Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-files
+          path: ./dist
+      
+      - name: Final Deployment
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy --dir=dist --prod --site=$NETLIFY_SITE_ID
