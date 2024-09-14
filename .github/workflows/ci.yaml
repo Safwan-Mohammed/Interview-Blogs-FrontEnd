@@ -1,4 +1,4 @@
-name: Interview Blogs Frontend UI
+name: Interview Blogs Frontend CI
 
 on:
   push:
